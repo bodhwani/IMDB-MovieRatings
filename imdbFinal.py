@@ -31,7 +31,6 @@ ratings = []
 
 
 def get_imdb_id(input):
-    """Function to get imdb id from input file name"""
     query = urllib.quote_plus(input)
     url = "http://www.imdb.com/find?ref_=nv_sr_fn&q="+query+"&s=all"
     page = requests.get(url)
@@ -45,8 +44,7 @@ def get_imdb_id(input):
     return (imdb_id)
 
 def get_info(id):  
-    """Function to get genre, plot and ratings from imdb id"""
-    print(id)
+
     omdb_request = Request('http://www.omdbapi.com/?i='+id+'&y=&plot=short&r=json')
     response = urlopen(omdb_request)
     data = response.read()
@@ -64,50 +62,27 @@ def get_info(id):
       
 def main():
     filepath = raw_input("Enter path")
+    print("Processing...")
     for file in os.listdir(filepath):
-        print(file)   
         get_info(get_imdb_id(file))
         movie_names.append(file)
 
-    # print(movie_names)
-    # print(ratings)
-    # print(genre)
-    # print("\n")
-    # array[0]=movie_names
-    # array[1]=ratings
-    # array[2] = genre
-    # array[3] = plot
 
     array.append(movie_names)
     array.append(ratings)
     array.append(genre)
     array.append(plot)
 
-    print(array)
+  
 
 
     for i in range(len(array[0])):
-        print(i)
         newarray = []
         newarray.append(array[0][i])
         newarray.append(array[1][i])
         newarray.append(array[2][i])
         newarray.append(array[3][i])
         final.append(newarray)
-        
-
-
-    # newarray.append(name_movie)
-    # newarray.append(name_movie)
-    # newarray.append(rating_movie)
-    # newarray.append(genre_movie)
-    # newarray.append(plot_movie)
-
-    # print("\nLength of final is ",len(final))
-
-    # print("\n\n\n")
-
-    # print(final)
 
 
     workbook = xlsxwriter.Workbook('membersFinal.xlsx')
@@ -120,9 +95,7 @@ def main():
         
 
     workbook.close()
-  #  df = pd.DataFrame({'Movie Name': movie_names , ' Genre': genre, 'Plot': plot, 'Ratings': ratings})
-   # print(df)
-    #df.to_excel('movies.xls', sheet_name='movies', index=False)
+    print("Successfully Created Excel file in the same directory in which your python script is present")
 
 if __name__ == "__main__":
     main()
