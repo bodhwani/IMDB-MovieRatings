@@ -43,23 +43,21 @@ def get_imdb_id(input):
         imdb_id = imdb_id.replace('/?ref_=fn_al_tt_1','')
     return (imdb_id)
 
-def get_info(id):  
+def get_info(id):
 
-    omdb_request = Request('http://www.omdbapi.com/?i='+id+'&y=&plot=short&r=json')
-    response = urlopen(omdb_request)
-    data = response.read()
-    d=json.loads(data)
-    if 'False' in data:
+    data = json.loads(urlopen(Request("http://theapache64.xyz:8080/movie_db/search?keyword={0}".format(id))).read())
+    
+    if data['error_code'] == 1:
         message = "No results found"
         genre.append(message)
         plot.append(message)
         ratings.append(message)
-           
+
     else:
-        genre.append(d['Genre'])
-        plot.append(d['Plot'])
-        ratings.append(d['imdbRating'])
-      
+        genre.append(data['data']['genre'])
+        plot.append(data['data']['plot'])
+        ratings.append(data['data']['rating'])
+
 def main():
     filepath = raw_input("Enter path")
     print("Processing...")
@@ -73,7 +71,7 @@ def main():
     array.append(genre)
     array.append(plot)
 
-  
+
 
 
     for i in range(len(array[0])):
@@ -92,17 +90,10 @@ def main():
         worksheet.write('B'+str(i), final[i][1])
         worksheet.write('C'+str(i), str(final[i][2]))
         worksheet.write('D'+str(i), str(final[i][3]))
-        
+
 
     workbook.close()
     print("Successfully Created Excel file in the same directory in which your python script is present")
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
