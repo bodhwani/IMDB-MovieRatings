@@ -1,5 +1,6 @@
 # IMDb Movie Information
-
+**Updated version is available here - <a href="https://github.com/bodhwani/awesome-movies-prediction">awesome-movie-prediction</a>**
+<br>
 A python script that looks up all movies in a folder on IMDb and gets the ratings, genre and plot of the movie and stores it in an excel sheet.
 I wrote this to be able to decide which movie I wanted to watch from all the movies I had on my disk.
 
